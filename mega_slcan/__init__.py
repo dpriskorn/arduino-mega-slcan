@@ -21,6 +21,12 @@ def main():
 
     try:
         bus = can.Bus(interface="slcan", channel=args.device, bitrate=args.bitrate)
+        hw_ver, sw_ver = bus.get_version(timeout=2.0)
+        if hw_ver is None and sw_ver is None:
+            print("Error: No response from MCP2515 CAN controller.", file=sys.stderr)
+            print("Is the MCP2515 CAN module connected and working?", file=sys.stderr)
+            bus.shutdown()
+            sys.exit(1)
     except serial.SerialException as e:
         if e.errno == errno.ENOENT:
             print(f"Error: Device '{args.device}' not found. Is the Arduino connected?", file=sys.stderr)

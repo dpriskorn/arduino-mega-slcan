@@ -69,7 +69,7 @@ void handleSerial(uint8_t c) {
         return;
     }
     
-    if (cmd == 0 && (c == 'O' || c == 'C' || c == 'S' || c == 'F')) {
+    if (cmd == 0 && (c == 'O' || c == 'C' || c == 'S' || c == 'F' || c == 'V')) {
         cmd = c;
         if (c == 'O') {
             canOpen = true;
@@ -82,6 +82,13 @@ void handleSerial(uint8_t c) {
             Serial.print("\r");
         } else if (c == 'F') {
             Serial.print("F\r");
+        } else if (c == 'V') {
+            uint8_t stat = can.ping();
+            if (stat != 0xFF) {
+                Serial.print("v\r");
+            } else {
+                Serial.print("\a");
+            }
         }
         return;
     }
