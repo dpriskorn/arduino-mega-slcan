@@ -10,4 +10,4 @@ monitor:
 	arduino-cli monitor -p /dev/ttyACM0 --fqbn arduino:avr:mega
 
 sniff:
-	uv run mega-slcan-sniff
+	uv pip install -e . && uv run mega-slcan-sniff
