@@ -11,6 +11,7 @@
 #define MCP_CLOCK         MCP_8MHZ
 
 #define SERIAL_BAUDRATE    1000000
+#define ERROR_LED_PIN      13
 
 MCP_CAN can(MCP2515_CS_PIN);
 
@@ -20,11 +21,17 @@ void setup() {
     Serial.begin(SERIAL_BAUDRATE);
     
     pinMode(MCP2515_IRQ_PIN, INPUT);
+    pinMode(ERROR_LED_PIN, OUTPUT);
     
     if (can.begin(MCP_STD, CAN_SPEED, MCP_8MHZ) == CAN_OK) {
         Serial.print("\r");
     } else {
-        while(1) { }
+        while(1) {
+            digitalWrite(ERROR_LED_PIN, HIGH);
+            delay(200);
+            digitalWrite(ERROR_LED_PIN, LOW);
+            delay(200);
+        }
     }
     
     can.setMode(MCP_NORMAL);
