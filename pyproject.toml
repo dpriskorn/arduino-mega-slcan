@@ -1,0 +1,9 @@
+[project]
+name = "mega-slcan"
+version = "0.1.0"
+description = "Arduino Mega + MCP2515 SLCAN adapter"
+requires-python = ">=3.8"
+dependencies = ["python-can"]
+
+[project.scripts]
+mega-slcan-sniff = "mega_slcan:main"
