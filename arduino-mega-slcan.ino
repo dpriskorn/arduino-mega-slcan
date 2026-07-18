@@ -1,6 +1,9 @@
 #include <mcp_can.h>
 #include <SPI.h>
 
+// Note: Transmitting to car (t command) is not supported.
+
+
 #define MCP2515_CS_PIN     53
 #define MCP2515_IRQ_PIN    2
 
@@ -18,7 +21,7 @@ void setup() {
     
     pinMode(MCP2515_IRQ_PIN, INPUT);
     
-    if (can.begin(MCP_STDIDLEN, CAN_SPEED, MCP_8MHZ) == CAN_OK) {
+    if (can.begin(MCP_STD, CAN_SPEED, MCP_8MHZ) == CAN_OK) {
         Serial.print("\r");
     } else {
         while(1) { }

@@ -39,7 +39,7 @@ uv run mega-slcan-sniff -f 0x123 -f 0x456
 ## CAN frames
 
 Ta emot: `t<ID><DLC><DATA>\r`
-Skicka: `t<ID><DLC><DATA>\r`
+Skicka: stöds ej (endast mottagning)
 
 ## Exempel
 
@@ -48,8 +48,4 @@ Skicka: `t<ID><DLC><DATA>\r`
 for msg in bus:
     if msg.arbitration_id == 0x123:
         print(msg)
-
-# Skicka frame
-msg = can.Message(arbitration_id=0x200, data=[1,2,3,4], is_extended_id=False)
-bus.send(msg)
 ```
